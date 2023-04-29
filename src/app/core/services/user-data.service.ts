@@ -27,4 +27,28 @@ export class UserDataService {
       .pipe(finalize(() => this._isLoading$.next(false)))
       .subscribe((data: UserInterface[]) => this._users$.next(data))
   }
+
+  public deleteUser(id: string): void {
+    this._isLoading$.next(true);
+
+    this.userApiService.deleteUser(id)
+      .pipe(finalize(() => this._isLoading$.next(false)))
+      .subscribe(() => {
+        const users = this._users$.getValue();
+        const newUsers = users.filter((user: UserInterface) => user.id !== id);
+        this._users$.next(newUsers);
+      });
+  }
+
+  public editUser(data: UserInterface): void {
+    this._isLoading$.next(true);
+
+    this.userApiService.editUser(data)
+      .pipe(finalize(() => this._isLoading$.next(false)))
+      .subscribe(() => {
+        const users = this._users$.getValue();
+        const newUsers = users.map((user: UserInterface) => user.id !== data.id ? user : data);
+        this._users$.next(newUsers);
+      });
+  }
 }

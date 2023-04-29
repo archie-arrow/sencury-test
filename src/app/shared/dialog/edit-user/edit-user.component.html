@@ -1,0 +1,64 @@
+<h1 mat-dialog-title>Edit user</h1>
+<div mat-dialog-content>
+  <form class="form" [formGroup]="form">
+    <div class="form-content">
+      <div class="form-group" style="font-size: 10px">
+        <mat-form-field class="small-control" appearance="outline" >
+          <mat-label>User name</mat-label>
+          <input matInput type="text" formControlName="userName"/>
+
+          <mat-error *ngIf="form.controls.userName.invalid">
+            User name is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="small-control" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email"/>
+
+          <mat-error *ngIf="form.controls.email.invalid">
+            Email is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="small-control" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password"/>
+
+          <mat-error *ngIf="form.controls.password.invalid">
+            Password is required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="small-control" appearance="outline">
+          <mat-label>Roles</mat-label>
+          <mat-select formControlName="userRoles" multiple panelClass="small-control-panel">
+            <mat-select-trigger>
+             {{ form.controls.userRoles.value?.join(', ') || '' }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let role of userRoles" [value]="role">{{ role }}</mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="form.controls.userRoles.invalid">
+            User Roles are required!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="small-control" appearance="outline">
+          <mat-label>Given name</mat-label>
+          <input matInput type="text" formControlName="givenName"/>
+        </mat-form-field>
+
+        <mat-form-field class="small-control" appearance="outline">
+          <mat-label>Family name</mat-label>
+          <input matInput type="text" formControlName="familyName"/>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+  <div mat-dialog-actions>
+    <button mat-button color="warn" [matDialogClose]="null">Cancel</button>
+    <button mat-button color="primary" cdkFocusInitial (click)="saveChanges()" [disabled]="form.invalid">Save</button>
+  </div>
+</div>

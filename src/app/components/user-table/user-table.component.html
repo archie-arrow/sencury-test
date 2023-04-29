@@ -1,52 +1,106 @@
-<button mat-raised-button color="primary" (click)="openColumnSettingDialog()">Column settings</button>
+<mat-card>
+  <mat-card-content>
+    <button mat-raised-button color="primary" (click)="openColumnSettingDialog()">Column settings</button>
+  </mat-card-content>
+</mat-card>
 
-<table mat-table matSort [dataSource]="(dataSource$ | async) || []">
+<mat-card>
+  <mat-card-content>
+    <table class="user-table" mat-table matSort [dataSource]="(dataSource$ | async) || []">
 
-  <ng-container matColumnDef="userName">
-    <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-    <td mat-cell *matCellDef="let user">{{ user.userName }}</td>
-  </ng-container>
+      <ng-container matColumnDef="userName">
+        <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.userName }}</td>
+      </ng-container>
 
-  <ng-container matColumnDef="email">
-    <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-    <td mat-cell *matCellDef="let user">{{ user.email }}</td>
-  </ng-container>
+      <ng-container matColumnDef="email">
+        <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
 
-  <ng-container matColumnDef="givenName">
-    <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Given Name</th>
-    <td mat-cell *matCellDef="let user">{{ user.givenName }}</td>
-  </ng-container>
+      <ng-container matColumnDef="givenName">
+        <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Given Name</th>
+        <td mat-cell *matCellDef="let user">
+          <ng-container *ngIf="user.id === rowToEdit?.id; else givenName" [formGroup]="form">
+            <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="givenName"/>
+            </mat-form-field>
+          </ng-container>
 
-  <ng-container matColumnDef="familyName">
-    <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Family Name</th>
-    <td mat-cell *matCellDef="let user">{{ user.familyName }}</td>
-  </ng-container>
+          <ng-template #givenName>
+            {{ user.givenName }}
+          </ng-template>
+        </td>
+      </ng-container>
 
-  <ng-container matColumnDef="userRoles">
-    <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Roles</th>
-    <td mat-cell *matCellDef="let user">{{ user.userRoles.join((', ')) }}</td>
-  </ng-container>
+      <ng-container matColumnDef="familyName">
+        <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Family Name</th>
+        <td mat-cell *matCellDef="let user">
+          <ng-container *ngIf="user.id === rowToEdit?.id; else familyName" [formGroup]="form">
+            <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="familyName"/>
+            </mat-form-field>
+          </ng-container>
+
+          <ng-template #familyName>
+            {{ user.familyName }}
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userRoles">
+        <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef mat-sort-header>Roles</th>
+        <td mat-cell *matCellDef="let user">
+          <ng-container *ngIf="user.id === rowToEdit?.id; else userRolesTmpl" [formGroup]="form">
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="userRoles" multiple panelClass="small-control-panel">
+                <mat-select-trigger>
+                  {{ form.controls.userRoles.value?.join(', ') || '' }}
+                </mat-select-trigger>
+                <mat-option *ngFor="let role of userRoles" [value]="role">{{ role }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+
+          <ng-template #userRolesTmpl>
+            {{ user.userRoles.join((', ')) }}
+          </ng-template>
+        </td>
+      </ng-container>
 
 
-  <ng-container matColumnDef="actions">
-    <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let user">
-      <button mat-raised-button color="primary">Edit</button>
-      <button mat-raised-button color="warn">Delete</button>
-    </td>
-  </ng-container>
+      <ng-container matColumnDef="actions">
+        <th [resizeColumn]="true" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <ng-container *ngIf="user.id === rowToEdit?.id; else actions">
+            <div>
+              <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+            </div>
+          </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <ng-template #actions>
+            <div class="actions">
+              <button mat-raised-button color="primary" (click)="verifyUser(user, openEditUserDialog.bind(this))">Edit
+              </button>
+              <button mat-raised-button color="warn" (click)="deleteUser(user.id)">Delete</button>
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
 
-  <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" colspan="4">No data!</td>
-  </tr>
-</table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="verifyUser(row, inlineEdit.bind(this))"></tr>
 
-<mat-paginator
-  [pageSizeOptions]="[5, 10, 20]"
-  [length]="(users$ | async)?.length"
-  showFirstLastButtons
-  aria-label="Select page of users"
-></mat-paginator>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data!</td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      [length]="(users$ | async)?.length"
+      showFirstLastButtons
+      aria-label="Select page of users"
+    ></mat-paginator>
+  </mat-card-content>
+</mat-card>

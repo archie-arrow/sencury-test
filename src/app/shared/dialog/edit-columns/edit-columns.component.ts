@@ -10,20 +10,20 @@ export interface TableColumnsConfigInterface {
 @Component({
   selector: 'app-edit-columns',
   template: `
-    <h1 mat-dialog-title>Table columns settings</h1>
-    <div mat-dialog-content>
-      <form [formGroup]="form">
-        <section *ngFor="let column of data">
-          <mat-checkbox [formControlName]="column.name">
-            {{ column.name }}
-          </mat-checkbox>
-        </section>
-      </form>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button [matDialogClose]="null">Cancel</button>
-      <button mat-button cdkFocusInitial (click)="saveChanges()">Save</button>
-    </div>
+      <h1 mat-dialog-title>Table columns settings</h1>
+      <div mat-dialog-content>
+          <form [formGroup]="form">
+              <section *ngFor="let column of data">
+                  <mat-checkbox [formControlName]="column.name">
+                      {{ column.name }}
+                  </mat-checkbox>
+              </section>
+          </form>
+      </div>
+      <div mat-dialog-actions>
+          <button mat-button color="warn" [matDialogClose]="null">Cancel</button>
+          <button mat-button color="primary" cdkFocusInitial (click)="saveChanges()">Save</button>
+      </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

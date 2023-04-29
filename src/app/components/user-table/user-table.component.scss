@@ -1,4 +1,4 @@
-.mat-mdc-table {
+.mat-mdc-table.user-table {
   width: 100%;
 
   &.resizing {
@@ -30,10 +30,13 @@
 
   .mat-mdc-cell,
   .mat-mdc-header-cell {
-
-
     &:not(:nth-child(1)) {
       padding: 0 10px;
     }
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
   }
 }

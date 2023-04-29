@@ -16,10 +16,6 @@ export class UserApiService {
     return this.http.get<UserInterface[]>(this.usersUrl);
   }
 
-  public createUser(user: UserInterface): Observable<UserInterface> {
-    return this.http.post<UserInterface>(this.usersUrl, user);
-  }
-
   public editUser(user: UserInterface): Observable<UserInterface> {
     return this.http.put<UserInterface>(`${this.usersUrl}/${user.id}`, user);
   }
@@ -27,5 +23,4 @@ export class UserApiService {
   public deleteUser(userId: string): Observable<UserInterface> {
     return this.http.delete<UserInterface>(`${this.usersUrl}/${userId}`);
   }
-
 }
