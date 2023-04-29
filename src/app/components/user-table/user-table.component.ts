@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { filter, map, take, tap } from 'rxjs';
 import { UserInterface } from '../../core/interfaces/user.interface';
@@ -20,11 +21,15 @@ export type UserTableColumn = keyof UserInterface | 'actions';
 })
 export class UserTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   public users$ = this.userDataService.users$.pipe(filter(Boolean));
   public dataSource$ = this.users$.pipe(
     map((users: UserInterface[]) => new MatTableDataSource<UserInterface>(users || [])),
-    tap((dataSource: MatTableDataSource<UserInterface>) => dataSource.paginator = this.paginator),
+    tap((dataSource: MatTableDataSource<UserInterface>) => {
+      dataSource.paginator = this.paginator;
+      dataSource.sort = this.sort;
+    }),
   );
 
   private _columns: UserTableColumn[] = ['userName', 'email', 'givenName', 'familyName' ,'userRoles', 'actions'];
