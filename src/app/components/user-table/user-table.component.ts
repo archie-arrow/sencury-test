@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { filter, map, take, tap } from 'rxjs';
+import { filter, map, startWith, switchMap, take, tap } from 'rxjs';
 import { UserInterface, UserRole } from '../../core/interfaces/user.interface';
 import { UserDataService } from '../../core/services/user-data.service';
 import { DeleteConfirmComponent } from '../../shared/dialog/delete-confirm/delete-confirm.component';
@@ -27,13 +27,30 @@ export class UserTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  public form = new FormGroup({
+    givenName: new FormControl(''),
+    familyName: new FormControl(''),
+    userRoles: new FormControl<UserRole[]>([], Validators.required),
+  });
+
+  public filterForm = new FormGroup({
+    userRole: new FormControl<UserRole[]>([]),
+    name: new FormControl('')
+  });
+
   public users$ = this.userDataService.users$.pipe(filter(Boolean));
-  public dataSource$ = this.users$.pipe(
-    map((users: UserInterface[]) => new MatTableDataSource<UserInterface>(users || [])),
-    tap((dataSource: MatTableDataSource<UserInterface>) => {
-      dataSource.paginator = this.paginator;
-      dataSource.sort = this.sort;
-    }),
+
+  public dataSource$ = this.filterForm.valueChanges.pipe(
+    startWith({ userRole: [], name: '' }),
+    switchMap((filters) => this.users$.pipe(
+      map((users: UserInterface[]) => new MatTableDataSource<UserInterface>(users || [])),
+      tap((dataSource: MatTableDataSource<UserInterface>) => {
+        dataSource.paginator = this.paginator;
+        dataSource.sort = this.sort;
+        dataSource.filterPredicate = this._filterPredicate.bind(this);
+        dataSource.filter = Object.entries(filters).toString();
+      }))
+    )
   );
 
   public _columns: UserTableColumn[] = ['userName', 'email', 'givenName', 'familyName' ,'userRoles', 'actions'];
@@ -41,12 +58,6 @@ export class UserTableComponent {
 
   public rowToEdit: UserInterface | null = null;
   public userRoles = Object.values(UserRole);
-
-  public form = new FormGroup({
-    givenName: new FormControl(''),
-    familyName: new FormControl(''),
-    userRoles: new FormControl<UserRole[]>([], Validators.required),
-  });
 
   constructor(
     private userDataService: UserDataService,
@@ -115,5 +126,18 @@ export class UserTableComponent {
     this.userDataService.editUser(user);
 
     this.rowToEdit = null;
+  }
+
+  private _filterPredicate(data: UserInterface): boolean {
+    const filters = this.filterForm.getRawValue();
+    const nameFilter = filters.name?.trim().toLowerCase() || '';
+    const rolesFilter = filters.userRole || [];
+
+    const fullName = `${data.userName} ${data.familyName}`.trim().toLowerCase();
+    const containRoles = rolesFilter.every((roleFilter: UserRole) => {
+      return data.userRoles.includes(roleFilter);
+    });
+
+    return fullName.includes(nameFilter) && containRoles;
   }
 }

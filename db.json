@@ -3,7 +3,10 @@
     {
       "userName": "Alfredo Wunsch",
       "email": "Pasquale_Miller56@yahoo.com",
-      "userRoles": ["User", "Manager"],
+      "userRoles": [
+        "User",
+        "Manager"
+      ],
       "givenName": "Leila",
       "familyName": "Ryan",
       "id": "1",
@@ -12,32 +15,33 @@
     {
       "userName": "Doreen Schuppe",
       "email": "Giles93@hotmail.com",
-      "userRoles": ["Manager"],
+      "userRoles": [
+        "User",
+        "Manager"
+      ],
       "givenName": "Jerry",
       "familyName": "Fay",
       "id": "2",
       "password": "12341234"
     },
     {
+      "id": "3",
       "userName": "Jo O'Conner",
       "email": "Roberto.Grant67@yahoo.com",
-      "userRoles": ["User"],
-      "givenName": "Teresa",
+      "userRoles": [
+        "User"
+      ],
+      "givenName": "Teresa1113",
       "familyName": "Wuckert",
-      "id": "3",
-      "password": "12341234"
-    },
-    {
-      "userName": "Ms. Sonia Feest",
-      "email": "Serena_Prohaska69@gmail.com",
-      "userRoles": ["Admin", "Manager"],
-      "id": "4",
       "password": "12341234"
     },
     {
       "userName": "Bernard Sawayn",
       "email": "Carissa78@gmail.com",
-      "userRoles": ["User", "Admin"],
+      "userRoles": [
+        "User",
+        "Admin"
+      ],
       "givenName": "Erich",
       "familyName": "Quitzon",
       "id": "5",
@@ -46,10 +50,13 @@
     {
       "userName": "Ryan Kutch IV",
       "email": "Vito_Zemlak23@gmail.com",
-      "userRoles": ["Admin"],
+      "userRoles": [
+        "Admin"
+      ],
       "givenName": "Nick",
       "id": "6",
-      "password": "12341234"
+      "password": "12341234",
+      "familyName": "NIIIIck"
     },
     {
       "userName": "Mrs. Hilda Flatley",
@@ -70,6 +77,3 @@
     }
   ]
 }
-
-
-

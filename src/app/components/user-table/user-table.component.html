@@ -5,6 +5,25 @@
 </mat-card>
 
 <mat-card>
+ <mat-card-content>
+   <div class="filters" [formGroup]="filterForm">
+     <mat-form-field appearance="outline">
+       <input matInput type="text" formControlName="name" placeholder="Filter by name"/>
+     </mat-form-field>
+
+     <mat-form-field appearance="outline">
+       <mat-select formControlName="userRole" multiple panelClass="small-control-panel" placeholder="Filter by role">
+         <mat-select-trigger>
+           {{ filterForm.controls.userRole.value?.join(', ') || '' }}
+         </mat-select-trigger>
+         <mat-option *ngFor="let role of userRoles" [value]="role">{{ role }}</mat-option>
+       </mat-select>
+     </mat-form-field>
+   </div>
+ </mat-card-content>
+</mat-card>
+
+<mat-card>
   <mat-card-content>
     <table class="user-table" mat-table matSort [dataSource]="(dataSource$ | async) || []">
 
