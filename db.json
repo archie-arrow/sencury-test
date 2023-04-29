@@ -1,0 +1,71 @@
+{
+  "users": [
+    {
+      "userName": "Alfredo Wunsch",
+      "email": "Pasquale_Miller56@yahoo.com",
+      "userRoles": ["User", "Manager"],
+      "givenName": "Leila",
+      "familyName": "Ryan",
+      "id": "1"
+    },
+    {
+      "userName": "Doreen Schuppe",
+      "email": "Giles93@hotmail.com",
+      "userRoles": ["Manager"],
+      "givenName": "Jerry",
+      "familyName": "Fay",
+      "id": "2"
+    },
+    {
+      "userName": "Jo O'Conner",
+      "email": "Roberto.Grant67@yahoo.com",
+      "userRoles": ["User"],
+      "givenName": "Teresa",
+      "familyName": "Wuckert",
+      "id": "3"
+    },
+    {
+      "userName": "Ms. Sonia Feest",
+      "email": "Serena_Prohaska69@gmail.com",
+      "userRoles": ["Admin", "Manager"],
+      "givenName": "Dovie",
+      "familyName": "Rogahn",
+      "id": "4"
+    },
+    {
+      "userName": "Bernard Sawayn",
+      "email": "Carissa78@gmail.com",
+      "userRoles": ["User", "Admin"],
+      "givenName": "Erich",
+      "familyName": "Quitzon",
+      "id": "5"
+    },
+    {
+      "userName": "Ryan Kutch IV",
+      "email": "Vito_Zemlak23@gmail.com",
+      "userRoles": ["Admin"],
+      "givenName": "Nick",
+      "familyName": "Franey",
+      "id": "6"
+    },
+    {
+      "userName": "Mrs. Hilda Flatley",
+      "email": "Lucio.Terry59@yahoo.com",
+      "userRoles": [],
+      "givenName": "Jeanne",
+      "familyName": "Ferry",
+      "id": "7"
+    },
+    {
+      "userName": "Herman Auer",
+      "email": "Johnny.Kunde@hotmail.com",
+      "userRoles": [],
+      "givenName": "Tressie",
+      "familyName": "Bernhard",
+      "id": "8"
+    }
+  ]
+}
+
+
+
