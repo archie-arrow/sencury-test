@@ -1,0 +1,39 @@
+.mat-mdc-table {
+  width: 100%;
+
+  &.resizing {
+    user-select: none;
+    cursor: col-resize;
+  }
+
+  .mat-mdc-header-row:hover {
+    .mat-mdc-header-cell {
+      border-right: 1px solid rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  .mat-mdc-header-cell {
+    position: relative;
+
+    ::ng-deep &:not(:last-child) {
+      .resize-holder {
+        cursor: col-resize;
+        width: 20px;
+        height: 100%;
+        position: absolute;
+        right: -10px;
+        top: 0;
+        z-index: 1;
+      }
+    }
+  }
+
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+
+
+    &:not(:nth-child(1)) {
+      padding: 0 10px;
+    }
+  }
+}

@@ -6,7 +6,8 @@
       "userRoles": ["User", "Manager"],
       "givenName": "Leila",
       "familyName": "Ryan",
-      "id": "1"
+      "id": "1",
+      "password": "12341234"
     },
     {
       "userName": "Doreen Schuppe",
@@ -14,7 +15,8 @@
       "userRoles": ["Manager"],
       "givenName": "Jerry",
       "familyName": "Fay",
-      "id": "2"
+      "id": "2",
+      "password": "12341234"
     },
     {
       "userName": "Jo O'Conner",
@@ -22,15 +24,15 @@
       "userRoles": ["User"],
       "givenName": "Teresa",
       "familyName": "Wuckert",
-      "id": "3"
+      "id": "3",
+      "password": "12341234"
     },
     {
       "userName": "Ms. Sonia Feest",
       "email": "Serena_Prohaska69@gmail.com",
       "userRoles": ["Admin", "Manager"],
-      "givenName": "Dovie",
-      "familyName": "Rogahn",
-      "id": "4"
+      "id": "4",
+      "password": "12341234"
     },
     {
       "userName": "Bernard Sawayn",
@@ -38,15 +40,16 @@
       "userRoles": ["User", "Admin"],
       "givenName": "Erich",
       "familyName": "Quitzon",
-      "id": "5"
+      "id": "5",
+      "password": "12341234"
     },
     {
       "userName": "Ryan Kutch IV",
       "email": "Vito_Zemlak23@gmail.com",
       "userRoles": ["Admin"],
       "givenName": "Nick",
-      "familyName": "Franey",
-      "id": "6"
+      "id": "6",
+      "password": "12341234"
     },
     {
       "userName": "Mrs. Hilda Flatley",
@@ -54,15 +57,16 @@
       "userRoles": [],
       "givenName": "Jeanne",
       "familyName": "Ferry",
-      "id": "7"
+      "id": "7",
+      "password": "12341234"
     },
     {
       "userName": "Herman Auer",
       "email": "Johnny.Kunde@hotmail.com",
       "userRoles": [],
-      "givenName": "Tressie",
       "familyName": "Bernhard",
-      "id": "8"
+      "id": "8",
+      "password": "12341234"
     }
   ]
 }
